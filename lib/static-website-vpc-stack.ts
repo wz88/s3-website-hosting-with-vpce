@@ -109,6 +109,8 @@ export class StaticWebsiteVpcStack extends Stack {
 
     // Add default route to the internet
     publicSubnet.addDefaultInternetRoute(
+      // https://github.com/aws/aws-cdk/issues/5327
+      // https://github.com/aws/aws-cdk/issues/19094
       process.env.IGW as string,  // existing default IGW
       this.vpc.internetConnectivityEstablished)
 
@@ -126,7 +128,7 @@ export class StaticWebsiteVpcStack extends Stack {
       'PrivateSubnetSecurityGroup',
       {
         vpc: this.vpc,
-        allowAllOutbound: true, // will let instance send outboud traffic
+        allowAllOutbound: true, // will let instance send outbound traffic
         securityGroupName: 'private-subnet-sg',
       }
     )
@@ -161,7 +163,7 @@ export class StaticWebsiteVpcStack extends Stack {
       'PublicSubnetSecurityGroup',
       {
         vpc: this.vpc,
-        allowAllOutbound: true, // will let instance send outboud traffic
+        allowAllOutbound: true, // will let instance send outbound traffic
         securityGroupName: 'public-subnet-sg',
       }
     )
